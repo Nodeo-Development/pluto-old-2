@@ -9,32 +9,43 @@
 
 namespace Macao\Pluto;
 
-use Psr\Container\ContainerInterface;
+use JetBrains\PhpStorm\Pure;
 
 /**
- * Default {@link ContainerInterface} implementation.
+ * Represents a container in which dependencies are stored.
+ * It exposes methods to get the dependencies in it.
+ *
+ * It is <strong>strongly</strong> recommended using this interface as
+ * little as possible, and rather let Pluto take care of automatically injecting
+ * dependencies into your classes.
  *
  * @author Juan Valero <choukaschups@gmail.com>
  */
-class Container implements ContainerInterface
+interface Container
 {
     /**
-     * @inheritDoc
+     * Returns the entry associated to the specified id.
+     *
+     * @template T The entry type, if the id is a class name.
+     *
+     * @param string|class-string<T> $id The entry id.
+     *
+     * @return mixed|T The entry.
+     * @throws NotFoundException If no entry with the specified id has been
+     * found.
+     * @throws ContainerException If an exception occurred while resolving
+     * the entry.
      */
-    public function get(string $id)
-    {
-        if ($this->has($id)) {
-            throw new NotFoundException($id);
-        }
-
-        return null;
-    }
+    public function get(string $id): mixed;
 
     /**
-     * @inheritDoc
+     * Checks whether the container has an entry associated to the specified
+     * id.
+     *
+     * @param string $id The entry id.
+     *
+     * @return bool <code>true</code> if the container has an entry
+     * associated to the specified id, <code>false</code> otherwise.
      */
-    public function has(string $id): bool
-    {
-        return false;
-    }
+    #[Pure] public function has(string $id): bool;
 }
