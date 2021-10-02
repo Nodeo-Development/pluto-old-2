@@ -12,13 +12,14 @@ namespace Macao\Pluto;
 use Exception;
 use JetBrains\PhpStorm\Pure;
 use Psr\Container\NotFoundExceptionInterface;
+use RuntimeException;
 
 /**
  * Default {@link NotFoundExceptionInterface} implementation.
  *
  * @author Juan Valero <choukaschups@gmail.com>
  */
-class NotFoundException extends Exception implements NotFoundExceptionInterface
+class NotFoundException extends RuntimeException implements NotFoundExceptionInterface
 {
     /**
      * NotFoundException constructor.
